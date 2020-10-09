@@ -55,6 +55,28 @@ User.prototype.validate = function () {
       this.errors.push("Username cannot exceed 30 characters.");
     }
 
+    if (
+      this.data.username.length > 2 &&
+      this.data.username.length < 31 &&
+      validator.isAlphanumeric(this.data.username)
+    ) {
+      let usernameTaken = await usersCollection.findOne({
+        username: this.data.username,
+      });
+      if (usernameTaken) {
+        this.errors.push(`${this.data.username} is already taken.`);
+      }
+    }
+
+    if (validator.isEmail(this.data.email)) {
+      let emailExists = await usersCollection.findOne({
+        email: this.data.email,
+      });
+      if (emailExists) {
+        this.errors.push(`${this.data.email} is already registered.`);
+      }
+    }
+
     resolve();
   });
 };
