@@ -1,5 +1,6 @@
 const usersCollection = require("../dbConnection").db().collection("users");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 let User = function (data) {
   this.data = data;
@@ -60,8 +61,17 @@ User.prototype.validate = function () {
 
 User.prototype.register = function () {
   return new Promise(async (resolve, reject) => {
-    await usersCollection.insertOne(this.data);
-    resolve();
+    this.cleanUp();
+    await this.validate();
+
+    if (!this.errors.length) {
+      let salt = bcrypt.genSaltSync(10);
+      this.data.password = bcrypt.hashSync(this.data.password, salt);
+      await usersCollection.insertOne(this.data);
+      resolve();
+    } else {
+      reject(this.errors);
+    }
   });
 };
 
