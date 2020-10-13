@@ -1,4 +1,4 @@
-const notesCollection = require("../db").db().collection("notes");
+const notesCollection = require("../dbConnection").db().collection("notes");
 const User = require("./User");
 
 let Note = function (data, userId) {
@@ -7,7 +7,7 @@ let Note = function (data, userId) {
   this.userId = userId;
 };
 
-Post.prototype.create = function () {
+Note.prototype.create = function () {
   return new Promise((resolve, reject) => {
     notesCollection
       .insertOne(this.data)
