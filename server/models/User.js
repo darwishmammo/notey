@@ -97,4 +97,26 @@ User.prototype.register = function () {
   });
 };
 
+User.prototype.login = function () {
+  return new Promise((resolve, reject) => {
+    this.cleanUp();
+    usersCollection
+      .findOne({ username: this.data.username })
+      .then((potentialUser) => {
+        if (
+          potentialUser &&
+          bcrypt.compareSync(this.data.password, potentialUser.password)
+        ) {
+          this.data = potentialUser;
+          resolve("User found.");
+        } else {
+          reject("Invalid username or password.");
+        }
+      })
+      .catch(function (e) {
+        reject("Error! Try again later.");
+      });
+  });
+};
+
 module.exports = User;
