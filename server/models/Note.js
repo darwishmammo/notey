@@ -1,5 +1,6 @@
 const notesCollection = require("../dbConnection").db().collection("notes");
 const User = require("./User");
+const ObjectID = require("mongodb").ObjectID;
 
 let Note = function (data, userId) {
   this.data = data;
@@ -7,7 +8,7 @@ let Note = function (data, userId) {
   this.userId = userId;
 };
 
-Post.prototype.cleanUp = function () {
+Note.prototype.cleanUp = function () {
   if (typeof this.data.title != "string") {
     this.data.title = "";
   }
@@ -16,11 +17,14 @@ Post.prototype.cleanUp = function () {
   }
 
   this.data = {
+    title: this.data.title,
+    body: this.data.body,
     createdDate: new Date(),
+    creator: ObjectID(this.userId),
   };
 };
 
-Post.prototype.validate = function () {
+Note.prototype.validate = function () {
   if (this.data.title == "") {
     this.errors.push("A note must have a title.");
   }
@@ -37,7 +41,7 @@ Note.prototype.create = function () {
       notesCollection
         .insertOne(this.data)
         .then((inserted) => {
-          resolve(inserted);
+          resolve(inserted.ops[0]._id);
         })
         .catch((e) => {
           this.errors.push("Error! Try again later.");

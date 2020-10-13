@@ -42,3 +42,12 @@ exports.login = function (req, res) {
       res.json(false);
     });
 };
+
+exports.isLoggedIn = function (req, res, next) {
+  try {
+    req.user = jwt.verify(req.body.token, process.env.SECRET);
+    next();
+  } catch (e) {
+    res.status(500).send("Error! Check if the token is valid.");
+  }
+};
