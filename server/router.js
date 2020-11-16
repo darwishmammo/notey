@@ -4,6 +4,10 @@ const noteController = require("./controllers/noteController");
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.post("/create-note", userController.isLoggedIn, noteController.create);
+router.post(
+  "/:username/notes",
+  userController.isLoggedIn,
+  noteController.create
+);
 
 module.exports = router;
