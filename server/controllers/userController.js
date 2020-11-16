@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const Note = require("../models/Note");
 
 exports.register = function (req, res) {
   let user = new User(req.body);
@@ -49,5 +50,16 @@ exports.isLoggedIn = function (req, res, next) {
     next();
   } catch (e) {
     res.status(500).send("Error! Check if the token is valid.");
+  }
+};
+
+exports.getAllNotesByUsername = async function (req, res) {
+  try {
+    let creator = await User.findByUsername(req.params.username);
+    let notes = await Note.findByAuthorId(creator._id);
+    //res.header("Cache-Control", "max-age=10").json(posts)
+    res.json(notes);
+  } catch (e) {
+    res.status(500).send("Sorry, invalid user requested.");
   }
 };

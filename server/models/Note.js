@@ -53,4 +53,36 @@ Note.prototype.create = function () {
   });
 };
 
+Note.reusablePostQuery = function (operations) {
+  return new Promise(async function (resolve, reject) {
+    let aggregations = operations.concat([
+      {
+        $project: {
+          title: 1,
+          body: 1,
+          createdDate: 1,
+          creatorId: "$creator",
+        },
+      },
+    ]);
+
+    let notes = await notesCollection.aggregate(aggregations).toArray();
+
+    notes = notes.map(function (note) {
+      note.creatorID = undefined;
+
+      return note;
+    });
+
+    resolve(notes);
+  });
+};
+
+Note.findByAuthorId = function (creatorID) {
+  return Note.reusablePostQuery([
+    { $match: { creator: creatorID } },
+    { $sort: { createdDate: -1 } },
+  ]);
+};
+
 module.exports = Note;

@@ -9,5 +9,9 @@ router.post(
   userController.isLoggedIn,
   noteController.create
 );
-
+router.get(
+  "/:username/notes",
+  userController.isLoggedIn,
+  userController.getAllNotesByUsername
+);
 module.exports = router;
