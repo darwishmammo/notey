@@ -19,4 +19,9 @@ router.get(
   userController.isLoggedIn,
   noteController.getSingleNote
 );
+router.post(
+  "/:username/notes/:id",
+  userController.isLoggedIn,
+  noteController.editNote
+);
 module.exports = router;

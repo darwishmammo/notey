@@ -26,3 +26,19 @@ exports.getSingleNote = async function (req, res) {
     }
   } catch {}
 };
+
+exports.editNote = function (req, res) {
+  let note = new Note(req.body);
+  note
+    .update(req.params.id)
+    .then((result) => {
+      if (result == "success") {
+        res.json("Note updated successfully");
+      } else {
+        res.json(note.errors);
+      }
+    })
+    .catch(() => {
+      res.json("Permission denied");
+    });
+};

@@ -1,4 +1,5 @@
 const notesCollection = require("../dbConnection").db().collection("notes");
+const router = require("../router");
 const User = require("./User");
 const ObjectID = require("mongodb").ObjectID;
 
@@ -49,6 +50,27 @@ Note.prototype.create = function () {
         });
     } else {
       reject(this.errors);
+    }
+  });
+};
+
+Note.prototype.update = function (id) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let note = await Note.findSingleNoteById(id);
+      this.cleanUp();
+      this.validate();
+      if (!this.errors.length) {
+        await notesCollection.findOneAndUpdate(
+          { _id: new ObjectID(id) },
+          { $set: { title: this.data.title, body: this.data.body } }
+        );
+        resolve("success");
+      } else {
+        resolve("failure");
+      }
+    } catch {
+      reject(this.data.errors);
     }
   });
 };
