@@ -14,4 +14,9 @@ router.get(
   userController.isLoggedIn,
   userController.getAllNotesByUsername
 );
+router.get(
+  "/:username/notes/:id",
+  userController.isLoggedIn,
+  noteController.getSingleNote
+);
 module.exports = router;

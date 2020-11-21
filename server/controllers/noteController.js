@@ -15,3 +15,14 @@ exports.create = function (req, res) {
     res.json("invalid route");
   }
 };
+
+exports.getSingleNote = async function (req, res) {
+  try {
+    if (req.params.username == req.user.username) {
+      let note = await Note.findSingleNoteById(req.params.id);
+      res.json(note);
+    } else {
+      res.json("invalid route");
+    }
+  } catch {}
+};

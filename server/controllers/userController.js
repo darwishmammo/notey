@@ -57,7 +57,7 @@ exports.getAllNotesByUsername = async function (req, res) {
   try {
     let creator = await User.findByUsername(req.params.username);
     let notes = await Note.findByAuthorId(creator._id);
-    //res.header("Cache-Control", "max-age=10").json(posts)
+
     res.json(notes);
   } catch (e) {
     res.status(500).send("Sorry, invalid user requested.");

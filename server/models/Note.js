@@ -53,7 +53,7 @@ Note.prototype.create = function () {
   });
 };
 
-Note.reusablePostQuery = function (operations) {
+Note.reusableQuery = function (operations) {
   return new Promise(async function (resolve, reject) {
     let aggregations = operations.concat([
       {
@@ -78,8 +78,27 @@ Note.reusablePostQuery = function (operations) {
   });
 };
 
+Note.findSingleNoteById = function (id) {
+  return new Promise(async function (resolve, reject) {
+    if (typeof id != "string" || !ObjectID.isValid(id)) {
+      reject();
+      return;
+    }
+
+    let notes = await Note.reusableQuery([
+      { $match: { _id: new ObjectID(id) } },
+    ]);
+
+    if (notes.length) {
+      resolve(notes[0]);
+    } else {
+      reject();
+    }
+  });
+};
+
 Note.findByAuthorId = function (creatorID) {
-  return Note.reusablePostQuery([
+  return Note.reusableQuery([
     { $match: { creator: creatorID } },
     { $sort: { createdDate: -1 } },
   ]);

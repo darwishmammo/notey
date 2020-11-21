@@ -5,7 +5,8 @@
   "description": "backend code for Notey application to register notes.",
   "main": "index.js",
   "scripts": {
-    "start": "node dbConnection.js"
+    "start": "node dbConnection.js",
+    "dev": "nodemon dbConnection.js"
   },
   "author": "Darwish Mammo",
   "license": "MIT",
@@ -17,6 +18,7 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
   }
 }
