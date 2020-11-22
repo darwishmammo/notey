@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const userController = require("./controllers/userController");
 const noteController = require("./controllers/noteController");
+const cors = require("cors");
+
+router.use(cors());
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
