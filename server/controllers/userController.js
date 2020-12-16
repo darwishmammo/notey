@@ -12,7 +12,6 @@ exports.register = function (req, res) {
           {
             _id: user.data._id,
             username: user.data.username,
-            avatar: user.avatar,
           },
           process.env.SECRET,
           { expiresIn: "90d" }
@@ -21,7 +20,7 @@ exports.register = function (req, res) {
       });
     })
     .catch((errors) => {
-      res.status(500).send(errors);
+      res.status(400).send(errors);
     });
 };
 

@@ -12,11 +12,7 @@ router.post(
   userController.isLoggedIn,
   noteController.create
 );
-router.get(
-  "/:username/notes",
-  userController.isLoggedIn,
-  userController.getAllNotesByUsername
-);
+router.get("/:username/notes", userController.getAllNotesByUsername);
 router.get(
   "/:username/notes/:id",
   userController.isLoggedIn,
@@ -27,4 +23,6 @@ router.post(
   userController.isLoggedIn,
   noteController.editNote
 );
+
+router.delete("/:username/notes/:id", noteController.deleteNote);
 module.exports = router;

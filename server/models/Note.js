@@ -1,6 +1,4 @@
 const notesCollection = require("../dbConnection").db().collection("notes");
-const router = require("../router");
-const User = require("./User");
 const ObjectID = require("mongodb").ObjectID;
 
 let Note = function (data, userId) {
@@ -124,6 +122,19 @@ Note.findByAuthorId = function (creatorID) {
     { $match: { creator: creatorID } },
     { $sort: { createdDate: -1 } },
   ]);
+};
+
+Note.delete = function (id) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let note = await Note.findSingleNoteById(id);
+
+      await notesCollection.deleteOne({ _id: new ObjectID(id) });
+      resolve();
+    } catch (e) {
+      reject();
+    }
+  });
 };
 
 module.exports = Note;

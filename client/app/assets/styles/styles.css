@@ -1,0 +1,380 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+
+:root {
+  --primary-color: #047aed;
+  --secondary-color: #1c3fa8;
+  --dark-color: #002240;
+  --light-color: #f4f4f4;
+  --success-color: #5cb85c;
+  --error-color: #d9534f;
+  --modal-duration: 1s;
+  --modal-color: #428bca;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+h1,
+h2 {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.navbar {
+  background-color: var(--primary-color);
+  color: #fff;
+  height: 70px;
+}
+
+.navbar .flex {
+  justify-content: space-between;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.input-dark {
+  height: 2rem;
+  padding: 0.5rem;
+  background-color: #444;
+  border-color: transparent;
+  border-radius: 0.3rem;
+  color: #ffffff;
+}
+
+.input-dark:focus {
+  color: #ffffff;
+  background-color: #555;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-dark::-webkit-input-placeholder {
+  color: #888;
+}
+.input-dark::-moz-placeholder {
+  color: #888;
+}
+.input-dark:-ms-input-placeholder {
+  color: #888;
+}
+.input-dark:-moz-placeholder {
+  color: #888;
+}
+
+#signin-btn {
+  background-color: rgb(0, 179, 86);
+}
+
+#user-name {
+  color: black;
+  cursor: pointer;
+  font-size: larger;
+  margin-left: 0.5rem;
+}
+
+#user-name:hover {
+  border-bottom: 2px #fff solid;
+}
+
+.showcase {
+  height: 400px;
+  background-color: var(--primary-color);
+  color: #fff;
+  position: relative;
+}
+
+.showcase h1 {
+  font-size: 40px;
+}
+
+.showcase p {
+  margin: 20px 0;
+}
+
+.showcase .grid {
+  overflow: visible;
+  grid-template-columns: 55% auto;
+  gap: 30px;
+}
+
+.showcase-text {
+  animation: slideInFromLeft 1s ease-in;
+}
+
+.showcase-form {
+  position: relative;
+  top: 60px;
+  height: 350px;
+  width: 400px;
+  padding: 40px;
+  z-index: 100;
+  justify-self: flex-end;
+  animation: slideInFromRight 1s ease-in;
+}
+
+.showcase-form .form-control {
+  margin: 30px 0;
+}
+
+.showcase-form input[type="text"],
+.showcase-form input[type="email"],
+.showcase-form input[type="password"] {
+  border: 0;
+  border-bottom: 1px solid #b4becb;
+  width: 100%;
+  padding: 3px;
+  font-size: 16px;
+}
+
+.showcase-form input:focus {
+  outline: none;
+}
+
+.showcase::before,
+.showcase::after {
+  content: "";
+  position: absolute;
+  height: 100px;
+  bottom: -70px;
+  right: 0;
+  left: 0;
+  background: #fff;
+  transform: skewY(-3deg);
+  -webkit-transform: skewY(-3deg);
+  -moz-transform: skewY(-3deg);
+  -ms-transform: skewY(-3deg);
+}
+
+.stats {
+  padding-top: 100px;
+  animation: slideInFromBottom 1s ease-in;
+}
+
+.stats-heading {
+  max-width: 500px;
+  margin: auto;
+}
+
+.stats .grid h3 {
+  font-size: 35px;
+}
+
+.stats .grid p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer .social a {
+  margin: 0 10px;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid,
+  .showcase .grid,
+  .stats .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .showcase {
+    height: auto;
+  }
+
+  .showcase-text {
+    text-align: center;
+    margin-top: 40px;
+    animation: slideInFromTop 1s ease-in;
+  }
+
+  .showcase-form {
+    justify-self: center;
+    margin: auto;
+    animation: slideInFromBottom 1s ease-in;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    height: 190px;
+  }
+
+  .navbar .flex {
+    flex-direction: column;
+  }
+
+  .navbar ul {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  #signin-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #signin-form input {
+    margin: 0.5rem 0;
+  }
+
+  .showcase-form {
+    width: 300px;
+  }
+}
+
+.notes-container {
+  width: 90%;
+  margin: 50px auto;
+  padding: 3rem;
+  border-radius: 8px;
+  background: #f9fcf7;
+  background: -moz-linear-gradient(top, #f9fcf7 0%, #f5f9f0 100%);
+  background: -webkit-linear-gradient(top, #f9fcf7 0%, #f5f9f0 100%);
+  background: linear-gradient(to bottom, #f9fcf7 0%, #f5f9f0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 ); /* IE6-9 */
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.42);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.42);
+}
+
+.notes-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.note-card {
+  width: 20%;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5%;
+  margin-left: 1px;
+  margin-bottom: 50px;
+  transition: 0.3s;
+}
+
+.card-header {
+  text-align: left;
+  padding: 25px 10px;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+}
+
+.card-body {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.icons-div {
+  width: 100%;
+}
+
+.icons-div i {
+  margin: 0 2rem;
+}
+
+.card-body .btn {
+  display: block;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  margin-top: 30px;
+  text-decoration: none;
+  padding: 10px 5px;
+}
+
+.note-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 1000px) {
+  .note-card {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .notes-container {
+    width: 100%;
+  }
+
+  .note-card {
+    width: 80%;
+  }
+}
+
+#toast-container {
+  margin-top: 4rem;
+}

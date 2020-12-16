@@ -9,7 +9,7 @@ exports.create = function (req, res) {
         res.json(id);
       })
       .catch(function (errors) {
-        res.json(errors);
+        res.status(400).json(errors);
       });
   } else {
     res.json("invalid route");
@@ -40,5 +40,15 @@ exports.editNote = function (req, res) {
     })
     .catch(() => {
       res.json("Permission denied");
+    });
+};
+
+exports.deleteNote = function (req, res) {
+  Note.delete(req.params.id)
+    .then(() => {
+      res.json("Success");
+    })
+    .catch((e) => {
+      res.json("You are not allowed to delete this note.");
     });
 };
